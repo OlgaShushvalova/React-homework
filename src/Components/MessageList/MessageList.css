@@ -1,0 +1,30 @@
+.Autor {
+  background: #9e9e9e;
+  width: 300px;
+  margin: 30px auto;
+  border-radius: 6px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.Text {
+  font-family: cursive;
+  color: #ffff00cc;
+}
+
+.Input {
+  width: 200px;
+  height: 30px;
+  border-color: #03a9f4;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.Button {
+  width: 95px;
+  height: 35px;
+  border-color: #ffff00cc;
+  color: white;
+  background: #9e9e9e;
+  cursor: pointer;
+}
