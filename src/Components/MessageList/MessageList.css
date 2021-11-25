@@ -1,30 +1,21 @@
-.Autor {
-  background: #9e9e9e;
-  width: 300px;
-  margin: 30px auto;
-  border-radius: 6px;
+.message_list {
+  list-style-type: none;
   text-align: left;
-  padding-left: 10px;
 }
 
-.Text {
-  font-family: cursive;
-  color: #ffff00cc;
+.message_list__block {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffff00c2;
+  border-radius: 10px;
+  width: fit-content;
 }
 
-.Input {
-  width: 200px;
-  height: 30px;
-  border-color: #03a9f4;
-  margin-right: 5px;
-  cursor: pointer;
+.message_list__author {
+  font-weight: 700;
 }
 
-.Button {
-  width: 95px;
-  height: 35px;
-  border-color: #ffff00cc;
-  color: white;
-  background: #9e9e9e;
-  cursor: pointer;
+.message_list__text {
+  margin: 5px 0;
+  font-size: 15px;
 }

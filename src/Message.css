@@ -1,5 +1,7 @@
 .Message {
   text-align: center;
-  padding-top: 20px;
-  color: yellow;
+  padding-top: 10px;
+  color: #ffeb3b;
+  font-family: fangsong;
+  font-size: 25px;
 }
