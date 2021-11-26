@@ -1,27 +1,5 @@
 .message-form {
   display: flex;
   flex-direction: column;
-  margin-top: 300px;
-  margin-left: 10px;
-}
-
-.message-form__author {
-  max-width: 200px;
-  background: #ffff0085;
-  border-color: gainsboro;
-}
-
-.message-form__text {
-  height: 65px;
-  max-width: 400px;
-  margin: 10px 0px;
-  background: #ffff0085;
-  border-color: gainsboro;
-}
-
-.message-form__button {
-  max-width: 200px;
-  cursor: pointer;
-  background: #ffff00ba;
-  border-color: gainsboro;
+  margin-left: 30px;
 }

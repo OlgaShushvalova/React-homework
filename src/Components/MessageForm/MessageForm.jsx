@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./MessageForm.css";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { v4 as uuidv4 } from "uuid";
 
 export function MessageForm({ messageList, setMessageList }) {
   const [messageAuthor, setMessageAuthor] = useState("");
   const [messageText, setMessageText] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [messageText]);
 
   const handleAuthorChange = (e) => setMessageAuthor(e.target.value);
   const handleTextChange = (e) => setMessageText(e.target.value);
 
   const handleAdd = (e) => {
     const newMessage = {
-      id: 3,
+      id: uuidv4(),
       author: messageAuthor,
       text: messageText,
     };
@@ -21,28 +30,38 @@ export function MessageForm({ messageList, setMessageList }) {
   };
 
   return (
-    <form
+    <Box
       className="message-form"
+      component="form"
+      sx={{
+        "& > :not(style)": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
       action="#"
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
-      <input
-        className="message-form__author"
+      <TextField
+        id="outlined-basic"
+        label="Имя"
+        variant="outlined"
         value={messageAuthor}
         onChange={handleAuthorChange}
-        placeholder="Имя"
+        size="small"
       />
-      <textarea
-        className="message-form__text"
+      <TextField
+        id="outlined-basic"
+        label="Текст сообщения"
+        variant="outlined"
         value={messageText}
         onChange={handleTextChange}
-        placeholder="Текст сообщения"
-      ></textarea>
-      <button className="message-form__button" onClick={handleAdd}>
+        inputRef={inputRef}
+      />
+      <Button variant="contained" onClick={handleAdd}>
         Отправить
-      </button>
-    </form>
+      </Button>
+    </Box>
   );
 }

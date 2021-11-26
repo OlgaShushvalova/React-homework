@@ -14,3 +14,17 @@
   font-size: 30px;
   color: white;
 }
+
+.App-main {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-start;
+}
+
+.Chat-list {
+  margin-left: 20px;
+}
+
+.Message-box {
+  margin-left: 40px;
+}
