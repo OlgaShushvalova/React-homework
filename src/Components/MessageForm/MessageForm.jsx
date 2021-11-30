@@ -17,7 +17,7 @@ export function MessageForm({ messageList, setMessageList }) {
   const handleAuthorChange = (e) => setMessageAuthor(e.target.value);
   const handleTextChange = (e) => setMessageText(e.target.value);
 
-  const handleAdd = (e) => {
+  const handleAddMessage = (e) => {
     const newMessage = {
       id: uuidv4(),
       author: messageAuthor,
@@ -59,7 +59,7 @@ export function MessageForm({ messageList, setMessageList }) {
         onChange={handleTextChange}
         inputRef={inputRef}
       />
-      <Button variant="contained" onClick={handleAdd}>
+      <Button variant="contained" onClick={handleAddMessage}>
         Отправить
       </Button>
     </Box>
