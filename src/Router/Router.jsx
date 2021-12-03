@@ -29,9 +29,10 @@ export const Router = () => {
         <Link to={ROUTES.PROFILE}>Профиль</Link>
       </Box>
       <Switch>
-        <Route exact pach={ROUTES.HOME} component={Home} />
-        <Route pach={ROUTES.CHATS} component={Chats} ChatList={ChatList} />
         <Route pach={ROUTES.PROFILE} component={Profile} />
+        <Route pach={ROUTES.CHATS} component={Chats} ChatList={ChatList} />
+        <Route exact pach={ROUTES.HOME} component={Home} />
+
         <Route path={ROUTES.NO_CHAT} ChatList={ChatList}>
           No chat content
         </Route>
