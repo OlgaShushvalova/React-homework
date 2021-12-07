@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Chats.css";
 import { Message } from "../../Message";
 import { MessageForm } from "../../Components/MessageForm";
 import { MessageList } from "../../Components/MessageList";
 import { ChatList } from "../../Components/ChatList";
-import { FIRST_MESSAGES, BOT_MESSAGES } from "./Constants";
+import { INIT_CHATS, BOT_MESSAGES } from "../../Components/ChatList/Constants";
 import { Redirect, useParams } from "react-router";
 import { ROUTES } from "../../Router/Constants";
+import { chatListContext } from "../../Router/context";
 
 const name = "друг";
 
-export const Chat = ({ ChatList }) => {
-  const { chatId } = useParams();
-  if (!chatId || !ChatList[chatId]) {
-    return <Redirect to={ROUTES.NO_CHAT} />;
-  }
-};
+export const Chats = () => {
+  let { chatId } = useParams();
+  const chatList = useContext(chatListContext);
 
-export function Chats() {
-  const [messageList, setMessageList] = useState([FIRST_MESSAGES]);
+  if (!INIT_CHATS[chatId]) chatId = "id0";
+
+  const [messageList, setMessageList] = useState(INIT_CHATS[chatId].messages);
+
+  useEffect(() => {
+    setMessageList(INIT_CHATS[chatId].messages);
+  }, [chatId]);
 
   useEffect(() => {
     let timer;
@@ -26,10 +29,13 @@ export function Chats() {
       timer = setTimeout(() => {
         setMessageList([...messageList, BOT_MESSAGES]);
       }, 1500);
+
     return () => {
       clearTimeout(timer);
     };
   }, [messageList]);
+
+  if (!chatId || !chatList[chatId]) return <Redirect to={ROUTES.NO_CHAT} />;
 
   return (
     <div className="Chats">
@@ -40,8 +46,12 @@ export function Chats() {
         </section>
         <section className="Message-box">
           <Message name={name} />
-          <MessageList messageList={messageList} />
+          <MessageList
+            messageList={messageList}
+            chatName={chatList[chatId].name}
+          />
           <MessageForm
+            chatId={chatId}
             messageList={messageList}
             setMessageList={setMessageList}
           />
@@ -50,4 +60,4 @@ export function Chats() {
       <footer className="Chats-footer"></footer>
     </div>
   );
-}
+};

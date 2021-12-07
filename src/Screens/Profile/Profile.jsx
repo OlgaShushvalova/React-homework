@@ -1,4 +1,7 @@
-import { toggleUserNameAction } from "../../Store/Profile/actions";
+import {
+  toggleUserNameAction,
+  changeUserNameAction,
+} from "../../Store/Profile/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { profileSelector } from "../../Store/Profile/selectors";
 import Checkbox from "@mui/material/Checkbox";
@@ -12,12 +15,15 @@ export const Profile = () => {
   const handleToggleShowName = () => {
     dispatch(toggleUserNameAction());
   };
+  const handleNameChange = (e) => {
+    dispatch(changeUserNameAction({ userName: e.target.value }));
+  };
 
   return (
     <div>
       <header className="Profile-header"> Страница профиля </header>
       <main>
-        <input type="text" label="Имя" />
+        <input value={userName} onChange={handleNameChange} />
         <Checkbox
           {...label}
           checked={showName}
