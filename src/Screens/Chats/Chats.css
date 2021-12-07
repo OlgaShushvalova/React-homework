@@ -1,0 +1,30 @@
+.Chats {
+  height: 800px;
+  text-align: center;
+  background-color: #3f51b573;
+}
+
+.Chats-header {
+  background-color: #3f51b5;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: fangsong;
+  font-size: 30px;
+  color: white;
+}
+
+.Chats-main {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-start;
+}
+
+.Chat-list {
+  margin-left: 20px;
+}
+
+.Message-box {
+  margin-left: 40px;
+}
