@@ -6,6 +6,7 @@ import { profileReducer } from "./Profile/reducer";
 import { chatsReducer } from "./Chats/reducer";
 import { messagesReducer } from "./Messages/reducer";
 import { middleware } from "../Middlewares";
+import { dogReducer } from "./Dog/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   chats: chatsReducer,
   messages: messagesReducer,
+  dog: dogReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
