@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { v4 as uuidv4 } from "uuid";
 
-export function MessageForm({ messageList, setMessageList }) {
+export function MessageForm({ setMessage }) {
   const [messageAuthor, setMessageAuthor] = useState("");
   const [messageText, setMessageText] = useState("");
   const inputRef = useRef(null);
@@ -26,7 +26,7 @@ export function MessageForm({ messageList, setMessageList }) {
 
     setMessageAuthor("");
     setMessageText("");
-    return setMessageList([...messageList, newMessage]);
+    return setMessage(newMessage);
   };
 
   return (

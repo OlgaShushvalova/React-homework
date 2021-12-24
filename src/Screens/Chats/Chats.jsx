@@ -1,39 +1,46 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import "./Chats.css";
 import { Message } from "../../Message";
 import { MessageForm } from "../../Components/MessageForm";
 import { MessageList } from "../../Components/MessageList";
 import { ChatList } from "../../Components/ChatList";
-import { INIT_CHATS, BOT_MESSAGES } from "../../Components/ChatList/Constants";
+import { INIT_CHATS } from "../../Components/ChatList/Constants";
 import { Redirect, useParams } from "react-router";
 import { ROUTES } from "../../Router/Constants";
-import { chatListContext } from "../../Router/context";
+import { useSelector, useDispatch } from "react-redux";
+import { chatListSelector } from "../../Store/Chats/selectors";
+import { chatMessagesSelector } from "../../Store/Messages/selectors";
+import { addChatAction } from "../../Store/Chats/actions";
+import { addMessageAction } from "../../Store/Messages/actions";
 
 const name = "друг";
 
 export const Chats = () => {
   let { chatId } = useParams();
-  const chatList = useContext(chatListContext);
-
-  if (!INIT_CHATS[chatId]) chatId = "id0";
-
-  const [messageList, setMessageList] = useState(INIT_CHATS[chatId].messages);
+  const chatList = useSelector(chatListSelector);
+  const dispatch = useDispatch();
+  const messageList = useSelector(chatMessagesSelector(chatId));
 
   useEffect(() => {
-    setMessageList(INIT_CHATS[chatId].messages);
-  }, [chatId]);
+    Object.keys(INIT_CHATS).forEach((key) => {
+      dispatch(
+        addChatAction({
+          id: key,
+          name: INIT_CHATS[key].name,
+        })
+      );
+    });
+  }, []);
 
-  useEffect(() => {
-    let timer;
-    if (messageList[messageList.length - 1].author !== "Бот")
-      timer = setTimeout(() => {
-        setMessageList([...messageList, BOT_MESSAGES]);
-      }, 1500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [messageList]);
+  function setMessage() {
+    dispatch(
+      addMessageAction({
+        chatId: chatId,
+        author: "",
+        message: "",
+      })
+    );
+  }
 
   if (!chatId || !chatList[chatId]) return <Redirect to={ROUTES.NO_CHAT} />;
 
@@ -53,7 +60,7 @@ export const Chats = () => {
           <MessageForm
             chatId={chatId}
             messageList={messageList}
-            setMessageList={setMessageList}
+            setMessage={setMessage}
           />
         </section>
       </main>
