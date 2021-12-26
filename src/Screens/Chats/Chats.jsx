@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Chats.css";
 import { Message } from "../../Message";
 import { MessageForm } from "../../Components/MessageForm";
@@ -12,6 +12,7 @@ import { chatListSelector } from "../../Store/Chats/selectors";
 import { chatMessagesSelector } from "../../Store/Messages/selectors";
 import { addChatAction } from "../../Store/Chats/actions";
 import { addMessageAction } from "../../Store/Messages/actions";
+import firebase from "firebase";
 
 const name = "друг";
 
@@ -20,6 +21,8 @@ export const Chats = () => {
   const chatList = useSelector(chatListSelector);
   const dispatch = useDispatch();
   const messageList = useSelector(chatMessagesSelector(chatId));
+  const [newChatName, setNewChatName] = useState("");
+  // const [chats, setChats] = useState([]);
 
   useEffect(() => {
     Object.keys(INIT_CHATS).forEach((key) => {
@@ -31,6 +34,25 @@ export const Chats = () => {
       );
     });
   }, []);
+
+  /* useEffect(() => {
+    firebase
+      .database()
+      .ref("chats")
+      .child("chat")
+      .on("value", (snapshot) => {
+        const newChats = [];
+        snapshot.forEach((entry) => {
+          newChats.push(entry.val());
+        });
+        setChats(newChats);
+      });
+  }, []);*/
+
+  const onAddChat = () => {
+    firebase.database().ref("chats").child(chatId).push({ name: newChatName });
+    setNewChatName("");
+  };
 
   function setMessage() {
     dispatch(
@@ -51,6 +73,7 @@ export const Chats = () => {
         <section className="Chat-list">
           <ChatList />
         </section>
+        <button onClick={onAddChat}>Добавить чат</button>
         <section className="Message-box">
           <Message name={name} />
           <MessageList
